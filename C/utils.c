@@ -17,15 +17,19 @@ int* init_dados(char *nome, int *n, int *iter){
 	}
     int a,b;
     char c;
+		c = fgetc(f);
+		printf("%c",c);
 	// Numero de iteracoes
-	/*while (fscanf(f, "%c %d %d", &c,&a,&b) != EOF){
-            printf("%c %d %d",c,a,b);
-    }   */    
+	
+		
+	
+	
+	 
     
 	// Numero de vertices
 	//fscanf(f, " %d", n);
 	// Alocacao dinamica da matriz
-	p = malloc(sizeof(int)*(*n)*(*n));
+	/*p = malloc(sizeof(int)*(*n)*(*n));
 	if(!p)
 	{
 	    printf("Erro na alocacao de memoria\n");
@@ -37,7 +41,7 @@ int* init_dados(char *nome, int *n, int *iter){
         for(j=0; j<*n; j++)
             fscanf(f, " %d", q++);
 	fclose(f);
-	return p;
+	return p;*/
 }
 /* Inicializa o gerador de numeros aleatorios */
 void init_rand(){
