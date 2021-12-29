@@ -33,3 +33,7 @@ int contaMenosUns(int *aux, int tam);
 
 
 void reparacao(int *solucao, struct info *d);
+
+//Funcoes para o ecra
+void apagar_ecra(); //Funcao que deteta o sistema e apaga o ecra
+void mostrarMenu();

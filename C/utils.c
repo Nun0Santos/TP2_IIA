@@ -524,3 +524,22 @@ int contaMenosUns(int *aux, int tam){
    }
    return 0;
 }
+
+//Algumas funcoes uteis
+void apagar_ecra()      //Funcao que deteta o sistema e apaga o ecra
+{
+    #ifdef WINDOWS
+        system("cls");
+    #else
+        system ("clear");
+    #endif
+}
+
+void mostrarMenu(){         
+    printf("\n---------- MENU ----------\n");
+    printf("1 - Trepa Colinas\n");
+    printf("2 - Algoritmo Evolutivo\n");
+    printf("3 - Algoritmo Hibrido\n");
+    printf("4 - Sair\n");
+    printf("Selecione o numero da opcao: ");
+}
