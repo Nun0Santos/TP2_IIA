@@ -22,10 +22,10 @@ int verificaValida(int *solucao, struct info *d); //valida solucao
 int verificaValidaPen(int *solucao, struct info *d);//valida solucao com penalizacao
 int contaNumsArray(int *solucai, int num, struct info *d); // conta um numero especifico num array
 int avaliaIndividual_1(int *solucao, struct info *d, int **mat, int *valido); // penalizacao cega
-int avaliaIndividual_2(int *solucao, struct info *d, int **mat, int *valido); // penalizacao e reparacao
+float avaliaIndividual_2(int sol[], struct info d, int mat[][2], int *v); // penalizacao e reparacao
 
 void verificaGeral_1(pchrom pop, struct info *d, int **mat); // penalizacao cega
-void verificaGeral_2(pchrom pop, struct info *d, int **mat); // com penalizacao e reparacao
+void verificaGeral_2(pchrom pop, struct info d, int **mat); // com penalizacao e reparacao
 
 
 int contaInvals(struct info *d,pchrom pop); // conta solucoes invalidas

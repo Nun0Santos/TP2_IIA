@@ -452,44 +452,36 @@ int avaliaIndividual_1(int *solucao, struct info *d, int **mat, int *valido){
     return soma;
 }
 
-int xavaliaIndividual_2(int *solucao, struct info *d, int **mat, int *valido){
-    int n = d->capacidade / d->numSub;
-    int aux[n];
-    int conta = d->numSub-1;
-    int soma = 0, pen = 0;
+float avaliaIndividual_2(int sol[], struct info d, int mat[][2], int *v)
+{
+	int     i;
+	float   sum_weight, sum_profit;
 
-
-    pen = verificaValidaPen(solucao,d);
-    if(pen > 0){
-        reparacao(solucao,d);
-     }
-    *valido = 1;
-
-    for(int i = 0; i < n; i++)
-        aux[i] = 0;
-
-    // enquanto conta >= 0
-    while(conta >= 0){
-        for(int i = 0, j = 0; i < d->capacidade; i++){
-            if(solucao[i] == conta){
-                aux[j] = i;
-                j++;
-            }
-        }
-
-        for(int i = 0; i < n; i++){
-            for(int j = i+1; j < n; j++){
-                soma = soma + mat[i][j];
-            }
-        }
-
-        for(int i = 0; i < n; i++)
-            aux[i] = 0;
-
-        conta--;
-    }
-
-    return soma - pen;
+	sum_weight = sum_profit = 0;
+	// Percorre todos os objectos
+	for (i=0; i < d.numGeracoes; i++)
+	{
+        // Verifica se o objecto i esta na mochila
+		if (sol[i] == 1)
+		{
+            // Actualiza o peso total
+			sum_weight += mat[i][0];
+            // Actualiza o lucro total
+			sum_profit += mat[i][1];
+		}
+	}
+	if (sum_weight > d.capacidade)
+	{
+        // Solucao inválida
+		*v = 0;
+		return 0;
+	}
+	else
+	{
+        // Solucao válida
+		*v = 1;
+		return sum_profit;
+	}
 }
 
 
@@ -507,9 +499,9 @@ void verificaGeral_1(pchrom pop, struct info *d, int **mat){
 
 
 // penalizacao nao cega, reparacao e avaliacao
-void verificaGeral_2(pchrom pop, struct info *d, int **mat){
+void verificaGeral_2(pchrom pop, struct info d, int **mat){
 
-    for(int i = 0; i < d->popsize; i++){
+    for(int i = 0; i < d.popsize; i++){
         pop[i].fitness = avaliaIndividual_2(pop[i].p,d,mat,&pop[i].valido);
     }
 }

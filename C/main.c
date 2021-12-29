@@ -137,7 +137,7 @@ int main(int argc, char *argv[]){
 
 
                     //avalia a nova pop
-                    verificaGeral_2(pop,&EA_param,matriz);
+                    verificaGeral_2(pop, EA_param,matriz);
 
 
                     //atualizar a melhor solucao encontrada
@@ -167,6 +167,8 @@ int main(int argc, char *argv[]){
             printf("\n\nMBF: %f\n", mbf/x);
             printf("\nMelhor solucao encontrada");
             mostraPop(melhor_ronda_final,&EA_param);
+
+
             break;
 
         case 3:     //Hibrido
