@@ -4,23 +4,27 @@
 
 #define PROB 0.1
 
-void gera_vizinho(int a[], int b[], int n)
+void geraVizinho(int *solucao, int *nova_solucao, int m)
 {
-    int i, p1, p2;
+  int p_ponto, s_ponto, temp = 0;
+    // copiar a solucao para a nova solucao
+    for(int i = 0; i < m; i++)
+        nova_solucao[i] = solucao[i];
 
-    for(i=0; i<n; i++)
-        b[i]=a[i];
-	// Encontra posicao com valor 0
-    do
-        p1=random_l_h(0, n-1);
-    while(b[p1] != 0);
-	// Encontra posicao com valor 0
-    do
-        p2=random_l_h(0, n-1);
-    while(b[p2] != 1);
-	// Troca
-    b[p1] = 1;
-    b[p2] = 0;
+    // gerar um indice aleatorio
+    p_ponto = random_l_h(0, m-1);
+
+    // gerar um indice aleatorio
+    do{
+        s_ponto = random_l_h(0,m-1);
+
+    }while(nova_solucao[s_ponto] == nova_solucao[p_ponto]);
+
+    // substitui os valores
+    temp = nova_solucao[p_ponto];
+    nova_solucao[p_ponto] = nova_solucao[s_ponto];
+    nova_solucao[s_ponto] = temp;
+
 }
 
 

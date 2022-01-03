@@ -8,7 +8,7 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter);
 /*Gera um vizinho
   Parametros: solucao actual, vizinho, numero de vertices
   swap two vertices*/
-void gera_vizinho(int a[], int b[], int n);
+void geraVizinho(int *solucao, int *nova_solucao, int m);
 
 
 
@@ -16,48 +16,25 @@ void gera_vizinho(int a[], int b[], int n);
 
 typedef struct Info info;
 struct info{
-
-    //tamanho da populacao
-    int popsize;
-
-    // probabilidade de mutacao
-    float pm;
-
-    // probabilidade de recombinacao
-    float pr;
-
-    //tamanho do torneio de selecao (vai ser sempre 2)
-    int tsize;
-
-    //penalizacao
-    int pen;
-
-    // numero de subconjuntos (g)
-    int numSub;
-
-    // capacidade da solucao (m)
-    int capacidade;
-
-    // numero de geracoes
-    int numGeracoes;
+  
+  int popsize; //tamanho da populacao
+  float pm; // probabilidade de mutacao
+  float pr; // probabilidade de recombinacao
+  int tsize;//tamanho do torneio de selecao (vai ser sempre 2)
+  int pen; //penalizacao
+  int numSub; // numero de subconjuntos (g)
+  int capacidade; // capacidade da solucao (m)
+  int numGeracoes; // numero de geracoes
 };
+
 
 typedef struct  individual chrom, *pchrom;
 struct individual {
 
-    // solucao
-    int p[10000];
-
-    // valor da fitnesss
-    int fitness;
-
-    // flag para ver se solucao e ou nao valida
-    int valido;
+  int p[10000];   // solucao
+  int fitness;  // valor da qualidade da soluçao
+  int valido;  // flag para ver se solucao e ou nao valida
 };
-
-
-
-
 
 //Hibrido
 void torneioSelecao(pchrom pop, struct info *d, pchrom pais); //torneio binario
