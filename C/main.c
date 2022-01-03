@@ -48,12 +48,13 @@ int main(int argc, char *argv[]){
 
 
     /* ================== Programa ================== */
-    
-    while(op != 4){
-            mostrarMenu();
-            scanf("%d",&op);
-            if(op == 1){     // ================= Trepa Colinas ===================
+    while(1){
+        mostrarMenu();
+        scanf("%d",&op);
 
+        if(op == -1)
+            break;
+        if(op == 1){     // ================= Trepa Colinas ===================
                     sol = malloc(sizeof(int)*vert);
                     best = malloc(sizeof(int)*vert);
 
@@ -88,9 +89,10 @@ int main(int argc, char *argv[]){
                    // free(matriz);             ========= Se tivermos isto comentado nao podemos voltar a correr o programa infinitamente
                     free(sol);
                     free(best);
-
+                    op = -1;
+                    
             }
-            else if(op == 2){    //============= Evolutivo ==================
+            if(op == 2){    //============= Evolutivo ==================
 
                 //preencher a struct EA_param
                 EA_param = leEA(nome_fich);
@@ -159,9 +161,10 @@ int main(int argc, char *argv[]){
                 printf("\n\nMBF: %f\n", mbf/x);
                 printf("\nMelhor solucao encontrada");
                 mostraPop(melhor_ronda_final,&EA_param);
+                op = -1;
 
-
-            }else if(op == 3){     //===================== Hibrido =====================
+            }
+            if(op == 3){     //===================== Hibrido =====================
 
                 //preencher a struct EA_param
                 EA_param = leEA(nome_fich);
@@ -252,13 +255,13 @@ int main(int argc, char *argv[]){
                 printf("\n\nMBF: %f\n", mbf/x);
                 printf("\nMelhor solucao encontrada");
                 mostraPop(melhor_ronda_final,&EA_param);
-
+                op = -1;
 
             }
-            else if(op != 4){
-                    apagar_ecra();
-                    printf("Nome do Ficheiro: '%s'\n",nome_fich);
+            if(op == 4){
+                    break;
             }    
+            
     }
     
 }
