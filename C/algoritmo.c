@@ -4,29 +4,49 @@
 
 #define PROB 0.1
 
-void geraVizinho(int *solucao, int *nova_solucao, int m)
+void geraVizinho(int *solucao, int *nova_solucao, int vert)
 {
-  int p_ponto, s_ponto, temp = 0;
+  int i , p1 , p2;
     // copiar a solucao para a nova solucao
-    for(int i = 0; i < m; i++)
+    for(int i = 0; i < vert; i++)
         nova_solucao[i] = solucao[i];
 
-    // gerar um indice aleatorio
-    p_ponto = random_l_h(0, m-1);
+    
+    if(tudoUns(solucao,vert)==0){
+        do{
+            p1 = random_l_h(0 , vert-1);
+        }while(nova_solucao[p1] != 0);
+    }
 
     // gerar um indice aleatorio
-    do{
-        s_ponto = random_l_h(0,m-1);
+    if(tudoZeros(solucao,vert) == 0){
+        do{
+            p2 = random_l_h(0,vert-1);
 
-    }while(nova_solucao[s_ponto] == nova_solucao[p_ponto]);
-
+        }while(nova_solucao[p2] != 1);
+    }
     // substitui os valores
-    temp = nova_solucao[p_ponto];
-    nova_solucao[p_ponto] = nova_solucao[s_ponto];
-    nova_solucao[s_ponto] = temp;
+    nova_solucao[p1] = 1;
+    nova_solucao[p2] = 0;
 
 }
 
+int tudoUns(int *sol,int v){
+    for(int i = 0 ; i< v ;i++){
+        if(sol[i]!=1)
+            return 0;
+    }
+    return 1;
+} 
+
+
+int tudoZeros(int *sol,int v){
+    for(int i = 0 ; i< v ;i++){
+        if(sol[i]!=0)
+            return 0;
+    }
+    return 1;
+} 
 
 int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
 {
@@ -47,14 +67,14 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
         exit(1);
     }
 
-    custo = calcula_fit(sol, mat, vert);
+    custo = calculaFit(sol, mat, vert);
     for(i=0; i<num_iter; i++)
     {
-		gera_vizinho(sol, nova_sol, vert);
-        gera_vizinho(sol,nova_sol2,vert);
+		/*gera_vizinho(sol, nova_sol, vert);
+        gera_vizinho(sol,nova_sol2,vert);*/
 
-        custo_viz = calcula_fit(nova_sol, mat, vert);
-        custo_viz2 = calcula_fit(nova_sol2 , mat , vert);
+        custo_viz = calculaFit(nova_sol, mat, vert);
+        custo_viz2 = calculaFit(nova_sol2 , mat , vert);
 
         if(custo_viz < custo)
         {

@@ -7,9 +7,9 @@
 #define DEFAULT_RUNS 10
 
 int main(int argc, char *argv[]){
-    char nome_fich[100];
+    char nome_fich[100] = "";
     int vert, num_iter, k, runs, custo, best_custo = 0,op = 0;
-    int **matriz, *sol, *best;
+    int *matriz, *sol, *best;
     float mbf = 0.0;
 
     //Parte 2
@@ -63,7 +63,7 @@ int main(int argc, char *argv[]){
                     for(k = 0 ; k < runs ; k++){
                         printf("\nRepeticao %d:", k);
                         // Gerar solucao inicial
-                        gera_sol_inicial(sol, vert);
+                        gera_sol_inicial(sol, vert,matriz,num_iter);
                         escreve_sol(sol, vert);
                         // Trepa colinas
                         custo = trepa_colinas(sol, matriz, vert, num_iter);
@@ -89,6 +89,7 @@ int main(int argc, char *argv[]){
                    // free(matriz);             ========= Se tivermos isto comentado nao podemos voltar a correr o programa infinitamente
                     free(sol);
                     free(best);
+                    mbf = 0;
                     op = -1;
                     
             }

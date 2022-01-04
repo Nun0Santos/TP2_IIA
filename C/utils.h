@@ -1,6 +1,7 @@
-int** init_dados(char *nome, int *n, int *iter);
-void gera_sol_inicial(int *sol, int v);
+int* init_dados(char *nome, int *vert, int *iter);
+void gera_sol_inicial(int *sol, int v, int *mat , int prints);
 int calculaFit(int a[], int *mat, int vert);
+int solucaovalida(int *sol,int v,int*mat,int prints);
 void escreve_sol(int *sol, int vert);
 void substitui(int a[], int b[], int n);
 void init_rand(void);

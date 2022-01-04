@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include "algoritmo.h"
 #include "utils.h"
@@ -7,70 +8,114 @@
 // Leitura do ficheiro de input
 // Recebe: nome do ficheiro, numero de vertices (ptr), numero de iteracoes (ptr)
 // Devolve a matriz de adjacencias
-int** init_dados(char *nome, int *n, int *iter)
+int* init_dados(char *nome, int *vert, int *iter)
 {
 	FILE *f;
 	int *p, *q;
-	int i, j;
+	int i, j ,n;
 
-	f=fopen(nome, "r");
+	f=fopen(nome, "rt");
 	if(!f)
 	{
 		printf("Erro no acesso ao ficheiro dos dados\n");
 		exit(1);
 	}
-	// Numero de iteracoes
-	fscanf(f, " %d", iter);
-	// Numero de vertices
-	fscanf(f, " %d", n);
-	// Alocacao dinamica da matriz
-	p = malloc(sizeof(int)*(*n)*(*n));
+
+    printf("Digite o numero de iterações: ");
+    scanf("%d",iter);
+
+    char deb;
+    fscanf(f," %c",&deb);
+    while(deb == 'c')
+    {
+        fscanf(f," %*[^\n]");
+        fscanf(f," %c",&deb);
+    }
+    if(deb == 'p')
+    {
+        fscanf(f," edge %d %*d",vert);
+    }
+    // Alocacao dinamica da matriz
+	p = malloc(sizeof(int)*(*vert)*(*vert));
 	if(!p)
 	{
 	    printf("Erro na alocacao de memoria\n");
 	    exit(1);
 	}
+    memset(p,0,sizeof(int)*(*vert)*(*vert));
 	q=p;
+
 	// Preenchimento da matriz
-	for(i=0; i<*n; i++)
-        for(j=0; j<*n; j++)
-            fscanf(f, " %d", q++);
-	fclose(f);
-	return p;
+    int vert1,vert2;
+	for(i=0; i<*vert; i++){
+
+        fscanf(f," e %d %d",&vert1,&vert2);
+        q[(vert1 - 1)*(*vert) + (vert2 - 1)] = 1;
+    }
+    fclose(f);
+	
+    printf("\n%d\n",*vert);
+
+    //Print
+
+    int k = 0;
+    for(i = 0;i<*vert;i++){
+        for(j = 0; j<*vert;j++)
+            printf("%d",q[k++]);
+        putchar('\n');
+    }
+
+    return p;
 }
 
 
 
-int calcula_fit(int a[], int *mat, int vert)
+int calculaFit(int a[], int *mat, int vert)
 {
-	int total=0;
-	int i, j;
+	int custo = vert;
+	int i;
 
 	for(i=0; i<vert; i++)
 		if(a[i]==0)
-		{
-			for(j=0; j<vert;j++)
-				if(a[j]==1 && *(mat+i*vert+j)==1)
-				    total++;
-		}
-	return total;
+			custo --;
+
+	return custo;
 }
 
 // Gera a solucao inicial
 // Parametros: solucao, numero de vertices
-void gera_sol_inicial(int *sol, int v)
+void gera_sol_inicial(int *sol, int v, int *mat , int prints)
 {
 	int i, x;
+    do{
+        for(i=0; i<v; i++)
+            sol[i]=0;
 
-	for(i=0; i<v; i++)
-        sol[i]=0;
-	for(i=0; i<v/2; i++)
-    {
-        do
-			x = random_l_h(0, v-1);
-        while(sol[x] != 0);
-        sol[x]=1;
+        int num_verts_sol = random_l_h(0,v-1);    
+        for(i=0; i < num_verts_sol ; i++)
+        {
+            do
+                x = random_l_h(0, v-1);
+            while(sol[x] != 0);
+            sol[x]=1;
+        }
+    }while(solucaovalida(sol , v, mat , prints) == 0);
+}
+
+int solucaovalida(int *sol,int v,int*mat,int prints){
+
+    int i = 0, j =0;
+    for(i = 0;i < v ;i++){
+        if(sol[i] == 1){
+            for(j = 0; j < v; j++){
+                if(sol[j]==1 && mat[i*v+j] == 1){
+                    if(prints) printf(" sol inval ");
+                    return 0;
+                }
+            }
+        }
     }
+    
 }
 
 // Escreve solucao
