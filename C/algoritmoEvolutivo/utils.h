@@ -16,3 +16,7 @@ int random_l_h(int min, int max);
 float rand_01();
 int flip();
 
+
+
+int verificaValidaPen(int *solucao, struct info *d);//valida solucao com penalizacao
+int avaliaIndividual_1(int *solucao, struct info *d, int **mat, int *valido); // penalizacao cega

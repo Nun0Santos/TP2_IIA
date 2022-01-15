@@ -15,6 +15,8 @@ struct info
   //int     numGenes; // obj // numero máximo de objetos das nossas sol
 	int     vert; //NumVertices
     int     *iter;
+    int numSub; //(G)
+    int capacidade;  // capacidade da solucao (m)
 	// N�mero de gera��es
     int     numGenerations;  //max_gen
 };

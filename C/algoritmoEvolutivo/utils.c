@@ -14,13 +14,16 @@ void init_rand()
 int* lerFicheiro(char *nome , struct info *x)
 {
 
-	x->popsize = 100; //fscanf(f, " pop: %d", &x.popsize);
-	x->pm = 0.01; //fscanf(f, " pm: %f", &x.pm);
-	x->pr = 0.7; //fscanf(f, " pr: %f", &x.pr);
+	x->popsize = 100; 
+
+	x->pm = 0.001; 
+	x->pr = 0.3; 
+
 	x->tsize = 2; //Torneio
-	x->numGenerations = 700;//fscanf(f, " max_gen: %d", &x.numGenerations); //max_gen
-	//x.capacity = 250;//fscanf(f, " cap: %d", &x.capacity);
-	x->ro = 0.0;
+	x->numGenerations = 2500;
+	//x->ro = 0.5; //penalização
+
+
 	if (x->vert > MAX_OBJ){
 		printf("Numero é superior ao MAX_OBJ\n");
 		exit(1);
@@ -153,4 +156,75 @@ void write_best(chrom x, struct info d)
 		printf("%d", x.p[i]);
 		
 	putchar('\n');
+}
+
+int verificaValidaPen(int *solucao, struct info *d){
+    int n = d->capacidade / d->numSub;
+    int contador = 0, aux = 0, penalidade = 0;
+
+    for(int i = 0; i < d->capacidade; i++){
+        aux = solucao[i];
+        for(int j = 0; j < d->capacidade; j++){
+            if(solucao[j] == aux)
+                contador++;
+        }
+        if(contador == n)
+            contador = 0;
+        else{
+            penalidade += contador;
+            contador = 0;
+            }
+    }
+
+    return penalidade;
+
+}
+int avaliaIndividual_1(int *solucao, struct info *d, int **mat, int *valido){
+    int n = d->capacidade / d->numSub;
+    int aux[n];
+    int conta = d->numSub-1;
+    int soma = 0;
+
+    // verifica sem penalizacao
+    if(!evaluate(solucao,d)){
+            *valido = 0;
+            return -1;
+        }
+        else{
+            *valido = 1;
+    }
+
+    for(int i = 0; i < n; i++)
+        aux[i] = 0;
+
+    // enquanto conta >= 0
+    while(conta >= 0){
+        for(int i = 0, j = 0; i < d->capacidade; i++){
+            if(solucao[i] == conta){
+                aux[j] = i;
+                j++;
+            }
+        }
+
+        for(int i = 0; i < n-1; i++){
+            for(int j = i+1; j < n; j++){
+                soma +=  mat[aux[i]][aux[j]];
+            }
+        }
+
+        for(int i = 0; i < n; i++)
+            aux[i] = 0;
+
+        conta--;
+    }
+
+    return soma;
+}
+
+void verificaGeral_1(pchrom pop, struct info *d, int **mat){
+
+    for(int i = 0; i < d->popsize; i++){
+        pop[i].fitness = avaliaIndividual_1(pop[i].p,d,mat,&pop[i].valido);
+
+    }
 }

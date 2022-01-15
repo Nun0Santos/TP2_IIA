@@ -67,7 +67,7 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
             custo_viz = melhorVizinho(nova_sol, vizinho1, vizinho2, mat, vert);
         }while(custo_viz == -1);
         
-        if(custo_viz >= custo)
+        if(custo_viz >= custo) // maior 1º
         {
 			substitui(sol, nova_sol, vert);
 			custo = custo_viz;

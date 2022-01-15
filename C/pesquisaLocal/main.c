@@ -41,11 +41,6 @@ int main(int argc, char *argv[])
 		printf("Erro na alocacao de memoria");
 		exit(1);
 	}
-	printf("Iterações :");
-	scanf("%d",&it);
-
-	for(int i = 1; i<=it; i++){
-		printf("Iteração: %d",it);
 		for(k=0; k<runs; k++) {
 			if(k != 0) {
 				printf("------------------\n");
@@ -63,7 +58,7 @@ int main(int argc, char *argv[])
 				substitui(best, sol, vert);
 			}
 		}
-	}
+	
 	// Escreve resultados globais
 	printf("\n\nMBF: %f\n", mbf/k);
 	printf("\nMelhor solucao encontrada");

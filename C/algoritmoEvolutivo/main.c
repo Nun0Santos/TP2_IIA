@@ -51,9 +51,8 @@ int main(int argc, char *argv[])
 
 	printf("\n=========== Inicio ============\n");
 	// Faz um ciclo com o n�mero de execu��es definidas
-	printf("Iterações :");
-	scanf("%d",&it);
-	for(int i = 0; i<it; i++){
+
+	
 		for (r=0; r<runs; r++)
 		{
         // Gera��o da popula��o inicial	
@@ -61,7 +60,6 @@ int main(int argc, char *argv[])
 		
 		// Avalia a popula��o inicial
 		evaluate(pop, EA_param , matriz); // mat tem os dados direitinhos do ficheiro de texto
-
 		// Como ainda n�o existe, escolhe-se como melhor solu��o a primeira da popula��o (poderia ser outra qualquer)
 		best_run = pop[0];
 
@@ -81,10 +79,13 @@ int main(int argc, char *argv[])
 		{
             // Torneio bin�rio para encontrar os progenitores (ficam armazenados no vector parents)
 			tournament(pop, EA_param, parents); // parents fica com uma série de soluções um pouco melhores que as anteriores, vai haver soluções repetidas, vão se perder algumas das soluções piores
-            // Aplica os operadores gen�ticos aos pais (os descendentes ficam armazenados na estrutura pop)
+            
+			// Aplica os operadores gen�ticos aos pais (os descendentes ficam armazenados na estrutura pop)
 			genetic_operators(parents, EA_param, pop); // pop fica com o crossover dos parents e da propria pop, e é aplicada mutação à pop
-            // Avalia a nova popula��o (a dos filhos)
+           
+		    // Avalia a nova popula��o (a dos filhos)
 			evaluate(pop, EA_param, matriz); // calcula se é válida e o fitness de cada solução
+
             // Actualiza a melhor solu��o encontrada
 			best_run = get_best(pop, EA_param, best_run);
 			gen_actual++;
@@ -105,7 +106,6 @@ int main(int argc, char *argv[])
         // Liberta a mem�ria usada
 		free(parents);
 		free(pop);
-	}
 }
 	// Escreve resultados globais
 	printf("\n\n=============== RESULTADOS GLOBAIS ===============");
