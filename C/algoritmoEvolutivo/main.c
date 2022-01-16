@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	struct info EA_param;
 	pchrom      pop = NULL, parents = NULL;
 	chrom       best_run, best_ever;
-	int         gen_actual, r, runs, i, inv,it;
+	int         gen_actual, r, runs, i, inv;
 	float       mbf = 0.0;
 
 	//matriz
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
            
 		    // Avalia a nova popula��o (a dos filhos)
 			evaluate(pop, EA_param, matriz); // calcula se é válida e o fitness de cada solução
-
+	
             // Actualiza a melhor solu��o encontrada
 			best_run = get_best(pop, EA_param, best_run);
 			gen_actual++;

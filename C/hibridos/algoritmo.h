@@ -1,4 +1,5 @@
-
+#ifndef ALG
+#define ALG
 
 #define MAX_OBJ 1000		// Numero maximo (de objectos ) de numGenes
 
@@ -37,3 +38,4 @@ int trepa_colinas(int sol[], int *mat, struct info x, int num_iter);
 
 
 
+#endif
