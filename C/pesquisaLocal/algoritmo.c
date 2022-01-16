@@ -44,7 +44,7 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
     int vizinho2[vert];
     int nova_sol[vert];
 
-    do {
+    do {   //Com ciclo tem reparacao sem ciclo nao tem 
         //Gere sol inicial
         gera_sol_inicial(sol, vert);			
 
