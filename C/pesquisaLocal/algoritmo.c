@@ -44,7 +44,7 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
     int vizinho2[vert];
     int nova_sol[vert];
 
-    do {   //Com ciclo tem reparacao sem ciclo nao tem 
+    do {   //Reparacao 
         //Gere sol inicial
         gera_sol_inicial(sol, vert);			
 
@@ -60,12 +60,12 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
     
     for(i=0; i<num_iter; i++)
     {
-		//do{
+		do{
             // Gera vizinho
             gera_vizinho(sol, vizinho1, vizinho2, vert);
             // Avalia melhor vizinho
             custo_viz = melhorVizinho(nova_sol, vizinho1, vizinho2, mat, vert);
-       // }while(custo_viz == -1);
+        }while(custo_viz == -1);
         
         if(custo_viz > custo) // maior 1º
         {

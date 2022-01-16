@@ -27,8 +27,6 @@ int calcula_fit(int a[], int *mat, int vert)
     return total;
 }
 
-
-
 int melhorVizinho(int a[], int b[], int c[], int *mat, int vert){
     int custo_b, custo_c;
 
