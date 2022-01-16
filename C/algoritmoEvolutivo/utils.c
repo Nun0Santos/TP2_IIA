@@ -21,7 +21,7 @@ int* lerFicheiro(char *nome , struct info *x)
 
 	x->tsize = 2; //Torneio
 	x->numGenerations = 2500;
-	//x->ro = 0.5; //penalização
+	x->ro = 0.5; //penalização
 
 
 	if (x->vert > MAX_OBJ){
@@ -38,10 +38,6 @@ int* lerFicheiro(char *nome , struct info *x)
 		printf("Erro no acesso ao ficheiro dos dados\n");
 		exit(1);
 	}
-
-    /*printf("Digite o numero de iterações: ");
-    scanf("%d",&x.iter);*/
-
     char c;
     fscanf(f," %c",&c);
     while(c == 'c')
@@ -70,16 +66,6 @@ int* lerFicheiro(char *nome , struct info *x)
 		p[(vert2 - 1)*( x->vert ) + ( vert1 - 1 )] = 1;
     }
     fclose(f);
-
-    //printf("\n%d\n",x->vert);
-    //Print Matriz
-   /* int k = 0;
-    for(i = 0 ; i < x->vert ; i++){
-        for(j = 0 ; j < x->vert ; j++)
-        printf("%d", p[k++]);
-        putchar('\n');
-    }*/
-
     return p;
 }
 

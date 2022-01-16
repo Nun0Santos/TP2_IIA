@@ -44,8 +44,10 @@ int main(int argc, char *argv[])
     // Se o n�mero de execu��es do processo for menor ou igual a 0, termina o programa
 	if (runs <= 0)
 		return 0;
+
     //Inicializa a gera��o dos n�meros aleat�rios
 	init_rand();
+
     // Preenche a matriz com dados dos objectos (peso e valor) e a estrutura EA_param que foram definidos no ficheiro de input
 	matriz = lerFicheiro(nome_fich , &EA_param);
 
@@ -54,6 +56,7 @@ int main(int argc, char *argv[])
 	// Faz um ciclo com o n�mero de execu��es definidas
 		for (r=0; r<runs; r++)
 		{
+
         // Gera��o da popula��o inicial	
 		pop = init_pop(EA_param); // pop tem um array de soluções (structs chrom), que dentro delas têm arrays de 1s e zeros
 		
@@ -84,6 +87,7 @@ int main(int argc, char *argv[])
             // Avalia a nova popula��o (a dos filhos)
 			evaluate(pop, EA_param, matriz); // calcula se é válida e o fitness de cada solução
             // Actualiza a melhor solu��o encontrada
+
 			for (int j = 0; j < EA_param.popsize; ++j) {
             	pop[j].fitness = trepa_colinas(pop[j].p, matriz, EA_param, EA_param.iter);			/*Abordagem 1*/
         	}
@@ -98,13 +102,17 @@ int main(int argc, char *argv[])
 				
 		// Escreve resultados da repeti��o que terminou
 		printf("\nRepeticao %d:", r);
-		trepa_colinas(pop,matriz,EA_param,EA_param.iter);
+
+		//trepa_colinas(pop,matriz,EA_param,EA_param.iter); //abordagem 2
+		
 		write_best(best_run, EA_param);
 		printf("Percentagem Invalidos: %.2f\n", 100*(float)inv/EA_param.popsize);
 		printf("\n-----------\n");
 		mbf += best_run.fitness;
+
 		if (r==0 || best_run.fitness > best_ever.fitness)
 			best_ever = best_run;
+
         // Liberta a mem�ria usada
 		free(parents);
 		free(pop);
@@ -114,5 +122,6 @@ int main(int argc, char *argv[])
 	printf("\nMBF: %f\n", mbf/r);			//Melhor fitness
 	printf("\nMelhor solucao encontrada");
 	write_best(best_ever, EA_param);
+	 
 	return 0;
 }

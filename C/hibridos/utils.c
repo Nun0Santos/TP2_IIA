@@ -14,13 +14,13 @@ void init_rand()
 int* lerFicheiro(char *nome , struct info *x)
 {
 
-	x->popsize = 100; //fscanf(f, " pop: %d", &x.popsize);
-	x->pm = 0.01; //fscanf(f, " pm: %f", &x.pm);
-	x->pr = 0.7; //fscanf(f, " pr: %f", &x.pr);
+	x->popsize = 100; 
+	x->pm = 0.0; 
+	x->pr = 0.3; 
 	x->tsize = 2; //Torneio
-	x->numGenerations = 700;//fscanf(f, " max_gen: %d", &x.numGenerations); //max_gen
-	//x.capacity = 250;//fscanf(f, " cap: %d", &x.capacity);
+	x->numGenerations = 2500;
 	x->ro = 0.0;
+	
 	if (x->vert > MAX_OBJ){
 		printf("Numero é superior ao MAX_OBJ\n");
 		exit(1);
@@ -35,10 +35,6 @@ int* lerFicheiro(char *nome , struct info *x)
 		printf("Erro no acesso ao ficheiro dos dados\n");
 		exit(1);
 	}
-
-    /*printf("Digite o numero de iterações: ");
-    scanf("%d",&x.iter);*/
-
     char c;
     fscanf(f," %c",&c);
     while(c == 'c')

@@ -1,5 +1,4 @@
-#ifndef ALG
-#define ALG
+
 
 #define MAX_OBJ 1000		// Numero maximo (de objectos ) de numGenes
 
@@ -37,5 +36,3 @@ void genetic_operators(pchrom parents, struct info d, pchrom offspring);
 void crossover(pchrom parents, struct info d, pchrom offspring);
 void mutation(pchrom offspring,struct info d);
 
-
-#endif

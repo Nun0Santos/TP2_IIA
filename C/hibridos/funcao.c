@@ -12,7 +12,7 @@ float eval_individual(int sol[], struct info d, int *mat , int *v){
 
 	if (solucaovalida(sol, d.vert, mat) == 0) { // solução inválida	
 			for(int j=0; j<d.vert; j++){
-				do{																	//ISTO SECALHAR N È PRECISO
+				do{																	
 					x = random_l_h(0, d.vert-1);
 				}while(sol[x] == 0);
 				sol[x]=1;
