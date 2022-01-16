@@ -14,13 +14,13 @@ void init_rand()
 int* lerFicheiro(char *nome , struct info *x)
 {
 
-	x->popsize = 100; 
+	x->popsize = 50; 
 
-	x->pm = 0.001; 
-	x->pr = 0.3; 
+	//x->pm = 0.05; 
+	x->pr = 0.7; 
 
 	x->tsize = 2; //Torneio
-	x->numGenerations = 2500;
+	x->numGenerations = 7000;
 	x->ro = 0.5; //penalização
 
 
