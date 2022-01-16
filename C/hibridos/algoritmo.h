@@ -34,6 +34,8 @@ void tournament(pchrom pop, struct info d, pchrom parents);
 void genetic_operators(pchrom parents, struct info d, pchrom offspring);
 void crossover(pchrom parents, struct info d, pchrom offspring);
 void mutation(pchrom offspring,struct info d);
+int trepa_colinas(int sol[], int *mat, struct info x, int num_iter);
+
 
 
 #endif

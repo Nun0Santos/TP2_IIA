@@ -22,7 +22,7 @@ float eval_individual(int sol[], struct info d, int *mat , int *v){
 		*v = 1;
 	}
 
-	int fit = calcula_fit(sol , d.vert);
+	int fit = calcula_fit(sol , d);
 	if (*v == 0 ) 
 		fit = 0;
 	
@@ -57,12 +57,12 @@ void evaluate(pchrom pop, struct info d, int *mat)
 // Calcula a qualidade de uma solu��o
 // Recebe:  A solu��o, a, a matriz de adjac�ncias, mat, e o n�mero de v�rtices, vert
 // Devolve: O custo que � o n�mero de liga��es que existem na solu��o
-int calcula_fit(int sol[], int vert)
+int calcula_fit(int sol[], struct info x)
 {
 	int total=0;
 	int i;
 
-	for(i=0; i<vert; i++)
+	for(i=0; i < x.vert; i++)
 		if(sol[i] == 1)
 			total++;
 

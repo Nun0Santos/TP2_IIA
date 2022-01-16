@@ -50,10 +50,8 @@ int main(int argc, char *argv[])
 	matriz = lerFicheiro(nome_fich , &EA_param);
 
 	printf("\n=========== Inicio ============\n");
+
 	// Faz um ciclo com o n�mero de execu��es definidas
-	printf("Iterações :");
-	scanf("%d",&it);
-	for(int i = 0; i<it; i++){
 		for (r=0; r<runs; r++)
 		{
         // Gera��o da popula��o inicial	
@@ -86,6 +84,10 @@ int main(int argc, char *argv[])
             // Avalia a nova popula��o (a dos filhos)
 			evaluate(pop, EA_param, matriz); // calcula se é válida e o fitness de cada solução
             // Actualiza a melhor solu��o encontrada
+			for (int j = 0; j < EA_param.popsize; ++j) {
+            	pop[j].fitness = trepa_colinas(pop[j].p, matriz, EA_param, EA_param.iter);			/*Abordagem 1*/
+        	}
+
 			best_run = get_best(pop, EA_param, best_run);
 			gen_actual++;
 		}
@@ -96,6 +98,7 @@ int main(int argc, char *argv[])
 				
 		// Escreve resultados da repeti��o que terminou
 		printf("\nRepeticao %d:", r);
+		trepa_colinas(pop,matriz,EA_param,EA_param.iter);
 		write_best(best_run, EA_param);
 		printf("Percentagem Invalidos: %.2f\n", 100*(float)inv/EA_param.popsize);
 		printf("\n-----------\n");
@@ -106,7 +109,6 @@ int main(int argc, char *argv[])
 		free(parents);
 		free(pop);
 	}
-}
 	// Escreve resultados globais
 	printf("\n\n=============== RESULTADOS GLOBAIS ===============");
 	printf("\nMBF: %f\n", mbf/r);			//Melhor fitness

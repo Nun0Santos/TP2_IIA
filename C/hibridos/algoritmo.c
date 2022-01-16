@@ -77,3 +77,141 @@ void mutation(pchrom offspring, struct info x)
             	offspring[i].p[j] = !(offspring[i].p[j]);		
                 
 }
+
+//Trepa colinas
+
+int trepa_colinas(int sol[], int *mat, struct info x, int num_iter)
+{
+    int custo, custo_viz, i;
+    double prob;
+
+	int vizinho1[x.vert];
+    int vizinho2[x.vert];
+    int nova_sol[x.vert];
+
+    do {
+        //Gere sol inicial
+        gera_sol_inicial(sol, x.vert);			
+
+        //Calcula fitness de sol inicial
+        custo = calcula_fit(sol, mat, x.vert);
+        
+    }while(custo == -1); //Enquanto o custo da solucao inicial for -1 (ser invalida) originar outra
+
+    
+    //Escrever sol inicial
+   /* escreve_sol(sol, x.vert);
+    printf("Custo inicial = %d\n", custo);*/
+    
+    for(i=0; i<num_iter; i++)
+    {
+		do{
+            // Gera vizinho
+            gera_vizinho(sol, vizinho1, vizinho2, x.vert);
+            // Avalia melhor vizinho
+            custo_viz = melhorVizinho(nova_sol, vizinho1, vizinho2, mat, x.vert);
+        }while(custo_viz == -1);
+        
+        if(custo_viz >= custo)
+        {
+			substitui(sol, nova_sol, x.vert);
+			custo = custo_viz;
+        }
+    }
+    return custo;
+}
+
+void gera_vizinho(int a[], int b[], int c[], int n)
+{
+    int i, pos, pos_ant;
+
+    for(i=0; i<n; i++) {
+        b[i]=a[i];
+        c[i]=a[i];
+    }
+	
+    pos=random_l_h(0, n-1);
+    if(b[pos] == 1) {
+        b[pos] = 0;
+    }else
+        b[pos] = 1;
+
+    pos_ant = pos;
+    
+    do {
+        pos = random_l_h(0, n-1);
+    }while(pos == pos_ant);
+    
+    if(c[pos] == 1)
+        c[pos] = 0;
+    else
+        c[pos] = 1;
+
+}
+
+int melhorVizinho(int a[], int b[], int c[], int *mat, int vert){
+    int custo_b, custo_c;
+
+    custo_b = calcula_fit(b, mat, vert);
+    custo_c = calcula_fit(c, mat, vert);
+
+    if(custo_b == -1 && custo_c == -1){
+
+        return -1;   
+    }   
+    else if(custo_c == -1) {    
+        for(int i = 0; i < vert; ++i){
+            a[i] = b[i];
+        }
+
+        return custo_b;
+    }else if(custo_b == -1){
+        for(int i = 0; i < vert; ++i){
+            a[i] = c[i];
+        }
+
+        return custo_c;
+        
+    }else if(custo_b < custo_c){
+        for(int i = 0; i < vert; ++i){
+            a[i] = c[i];
+        }
+
+        return custo_c;
+    }else {
+        for(int i = 0; i < vert; ++i){
+            a[i] = b[i];
+        }
+
+        return custo_b;
+    }
+}
+
+
+
+void gera_sol_inicial(int sol[], int v)
+{
+	int x, n;
+
+	for(int i=0; i < v; i++){
+		sol[i]=0;
+	}
+
+	n = random_l_h(2, v);
+
+    for (int k = 0; k < n; ++k) {
+        do{
+            x = random_l_h(0,v-1);
+        }while(sol[x] != 0);
+
+        sol[x] = 1;
+    }
+}
+
+// copia vector b para a (tamanho n)
+void substitui(int a[], int b[], int n)
+{
+    int i;
+    for(i=0; i<n; i++)
+        a[i]=b[i];
+}
